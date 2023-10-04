@@ -20,6 +20,9 @@ AVE_RUNTIME_G = []
 AVE_WEIGHT_E = []
 AVE_WEIGHT_G = []
 
+AVE_VALUE_E = []
+AVE_VALUE_G = []
+
 # opens a file to save all the runtimes to for your veiwing and debugging pleasuerpy
 # under Times.txt
 times = open(r"Times.txt", "w")
@@ -33,6 +36,9 @@ for i in range(3, 16):
 
     average_W_Exahstive = 0
     average_W_greedy = 0
+
+    average_V_Exahstive = 0
+    average_V_greedy = 0
 
     # each amount of items is run 5 times to improve runtime data accuracy
     for j in range(5):
@@ -70,6 +76,8 @@ for i in range(3, 16):
 
         average_T_Exahstive += stoptime - starttime - WAITTIME  # add runtime to average
         average_W_Exahstive += highest_weight
+        average_V_Exahstive += highest_value
+
 
         # Print search exhaustive algorithm results
         print("EXHAUSTIVE:\nBring\n", highest_combo)
@@ -89,6 +97,7 @@ for i in range(3, 16):
 
         average_T_greedy += stoptime - starttime - WAITTIME  # add timer to average
         average_W_greedy += highest_weight
+        average_V_greedy += highest_value
 
         # print results of greedy algorithm
         print("Greedy:\nBring\n", highest_combo)
@@ -104,6 +113,9 @@ for i in range(3, 16):
     average_W_Exahstive /= 5
     average_W_greedy /= 5
 
+    average_V_Exahstive /= 5
+    average_V_greedy /= 5
+
     # append to average runtime list (plotting)
     AVE_RUNTIME_E.append(average_T_Exahstive)
     AVE_RUNTIME_G.append(average_T_greedy)
@@ -111,13 +123,22 @@ for i in range(3, 16):
     AVE_WEIGHT_E.append(average_W_Exahstive)
     AVE_WEIGHT_G.append(average_W_greedy)
 
+    AVE_VALUE_E.append(average_V_Exahstive)
+    AVE_VALUE_G.append(average_V_greedy)
+
     # write to file
     times.write("{:20s}".format(str(i)) + "{:20s}".format(str(average_T_Exahstive)))
     times.write("\t" + str(average_T_greedy) + "\n")
 
 times.close()  # Close file
 
+AVE_VALUE_R = []
+
+for i in range(len(AVE_VALUE_E)):
+    AVE_VALUE_R.append(AVE_VALUE_E[i]/AVE_VALUE_G[i])
+
 
 # make plots
 plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G)  
 plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G)
+plot_ValueRatio(AVE_VALUE_R)

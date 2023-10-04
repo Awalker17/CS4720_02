@@ -55,6 +55,26 @@ def plot_Items(Total_Weights_E, Total_Weight_G):
 
     # save as Plot.png
     export_png(p, filename="Total_Weights.png")
+
+def plot_ValueRatio(Values_R):
+    R = list(Values_R)
+
+    Number_of_items = list(range(3, 16))
+
+    p = figure(width=600, height=400, title="Value Ratio: Exhaustive/Greedy")
+    p.add_layout(Title(text="Number of Items", align="center"), "below")
+    p.add_layout(Title(text="Ratio", align="center"), "left")
+
+    # add data to scatter plot
+    p.circle(Number_of_items, R, color="Red")
+
+
+    # remove toolbar on graph
+    p.toolbar.logo = None
+    p.toolbar_location = None
+
+    # save as Plot.png
+    export_png(p, filename="ValueRatio.png")
     
 
 
