@@ -30,6 +30,9 @@ AVE_WEIGHT_G = []
 AVE_VALUE_E = []
 AVE_VALUE_G = []
 
+EVERY_RUNTIME_E = []
+EVERY_RUNTIME_G = []
+
 # opens a file to save all the runtimes to for your veiwing and debugging pleasuerpy
 # under Times.txt
 times = open(r"Times.txt", "w")
@@ -84,6 +87,7 @@ for i in range(3, 16):
         average_T_Exahstive += stoptime - starttime - WAITTIME  # add runtime to average
         average_W_Exahstive += highest_weight
         average_V_Exahstive += highest_value
+        EVERY_RUNTIME_E.append([i, stoptime - starttime - WAITTIME ])
 
 
         # Print search exhaustive algorithm results
@@ -105,6 +109,8 @@ for i in range(3, 16):
         average_T_greedy += stoptime - starttime - WAITTIME  # add timer to average
         average_W_greedy += highest[1]
         average_V_greedy += highest[0]
+
+        EVERY_RUNTIME_G.append([i, stoptime - starttime - WAITTIME])
 
         # print results of greedy algorithm
         print("GREEDY:\nBring\n", highest_combo)
@@ -146,6 +152,6 @@ for i in range(len(AVE_VALUE_E)):
 
 
 # make plots
-plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G)  
+plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G, EVERY_RUNTIME_E, EVERY_RUNTIME_G)
 plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G)
 plot_ValueRatio(AVE_VALUE_R)
