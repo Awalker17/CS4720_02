@@ -17,7 +17,10 @@ WAITTIME = .01
 AVE_RUNTIME_E = []
 AVE_RUNTIME_G = []
 
-# opens a file to save all the runtimes to for your veiwing and debugging pleasuer
+AVE_WEIGHT_E = []
+AVE_WEIGHT_G = []
+
+# opens a file to save all the runtimes to for your veiwing and debugging pleasuerpy
 # under Times.txt
 times = open(r"Times.txt", "w")
 times.write("NUMBER OF ITEMS\t\tExhaustive\t\t\t\tGreedy\n")
@@ -27,6 +30,9 @@ for i in range(3, 16):
     # Average runtime counter
     average_T_Exahstive = 0
     average_T_greedy = 0
+
+    average_W_Exahstive = 0
+    average_W_greedy = 0
 
     # each amount of items is run 5 times to improve runtime data accuracy
     for j in range(5):
@@ -63,6 +69,7 @@ for i in range(3, 16):
         stoptime = time.time()  # stop timer
 
         average_T_Exahstive += stoptime - starttime - WAITTIME  # add runtime to average
+        average_W_Exahstive += highest_weight
 
         # Print search exhaustive algorithm results
         print("EXHAUSTIVE:\nBring\n", highest_combo)
@@ -79,7 +86,9 @@ for i in range(3, 16):
 
         time.sleep(WAITTIME)  # wait number of seconds
         stoptime = time.time()  # stop timer
+
         average_T_greedy += stoptime - starttime - WAITTIME  # add timer to average
+        average_W_greedy += highest_weight
 
         # print results of greedy algorithm
         print("Greedy:\nBring\n", highest_combo)
@@ -92,9 +101,15 @@ for i in range(3, 16):
     average_T_Exahstive /= 5
     average_T_greedy /= 5
 
+    average_W_Exahstive /= 5
+    average_W_greedy /= 5
+
     # append to average runtime list (plotting)
     AVE_RUNTIME_E.append(average_T_Exahstive)
     AVE_RUNTIME_G.append(average_T_greedy)
+
+    AVE_WEIGHT_E.append(average_W_Exahstive)
+    AVE_WEIGHT_G.append(average_W_greedy)
 
     # write to file
     times.write("{:20s}".format(str(i)) + "{:20s}".format(str(average_T_Exahstive)))
@@ -102,4 +117,7 @@ for i in range(3, 16):
 
 times.close()  # Close file
 
-plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G)  # make plot
+
+# make plots
+plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G)  
+plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G)

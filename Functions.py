@@ -87,5 +87,5 @@ def greedySerch(Objects, Max_weight):
             combo.append(tempCombo)
             Cweight = findTotal(combo)[1]
 
-    print("With " + str(len(Objects)) + " number of items we ran " + str(counter) + " times")
+    logging.debug("With " + str(len(Objects)) + " number of items we ran " + str(counter) + " times")
     return findTotal(combo)
