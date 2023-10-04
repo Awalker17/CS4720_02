@@ -17,7 +17,7 @@ WAITTIME = .01
 AVE_RUNTIME_E = []
 AVE_RUNTIME_G = []
 
-# opens a file to save all the runtimes to for your veiwing and debugging pleasuer
+# opens a file to save all the runtimes to for your veiwing and debugging pleasuerpy
 # under Times.txt
 times = open(r"Times.txt", "w")
 times.write("NUMBER OF ITEMS\t\tExhaustive\t\t\t\tGreedy\n")
@@ -103,3 +103,4 @@ for i in range(3, 16):
 times.close()  # Close file
 
 plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G)  # make plot
+plot_Items(Objects)

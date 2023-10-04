@@ -28,4 +28,33 @@ def plot_runtimes(E, G):
     p.toolbar_location = None
 
     # save as Plot.png
-    export_png(p, filename="Plot.png")
+    export_png(p, filename="Runtimes.png")
+
+def plot_Items(Objects):
+    Weights = []
+    Values = []
+    for weight, values in Objects.values():
+        Weights.append(weight)
+        Values.append(values)
+    
+    # create scatter plot layout
+    p = figure(width=600, height=400, title="Item spread")
+    p.add_layout(Title(text="Weights", align="center"), "below")
+    p.add_layout(Title(text="Values", align="center"), "left")
+
+    # add data to scatter plot
+    p.circle(Weights, Values, color="Blue")
+
+    # remove toolbar on graph
+    p.toolbar.logo = None
+    p.toolbar_location = None
+
+    export_png(p, filename="Items.png")
+
+    
+
+
+
+
+
+
