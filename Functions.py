@@ -53,7 +53,7 @@ def NumbGenerator(numb_objects=3):
         Objects[i] = [random.randint(1, 10000), random.randint(1, 100)]
     return max_weight, Objects
 
-# Greedy search algorithm big O()
+# Greedy search algorithm big O(n^2)
 def greedySerch(Objects, Max_weight):
     counter = 0
     Items = list(Objects.values())
@@ -88,4 +88,4 @@ def greedySerch(Objects, Max_weight):
             Cweight = findTotal(combo)[1]
 
     logging.debug("With " + str(len(Objects)) + " number of items we ran " + str(counter) + " times")
-    return findTotal(combo)
+    return combo, findTotal(combo)

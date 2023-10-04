@@ -1,3 +1,10 @@
+'''
+Alex Walker
+10/4
+MAIN PROGRAM: Knapsack problem
+Funtions used in Functions.py and Plot_results.py
+'''
+
 import logging
 import time
 from Functions import *
@@ -90,19 +97,19 @@ for i in range(3, 16):
         starttime = time.time()  # start timer
 
         # run search algo.
-        value, weight = greedySerch(Objects, Max_weight)
+        highest_combo, highest = greedySerch(Objects, Max_weight)
 
         time.sleep(WAITTIME)  # wait number of seconds
         stoptime = time.time()  # stop timer
 
         average_T_greedy += stoptime - starttime - WAITTIME  # add timer to average
-        average_W_greedy += highest_weight
-        average_V_greedy += highest_value
+        average_W_greedy += highest[1]
+        average_V_greedy += highest[0]
 
         # print results of greedy algorithm
-        print("Greedy:\nBring\n", highest_combo)
-        print("Total Value\n", highest_value)
-        print("Total Weight\n", highest_weight)
+        print("GREEDY:\nBring\n", highest_combo)
+        print("Total Value\n", highest[0])
+        print("Total Weight\n", highest[1])
 
         print("TIME TO COMPLETE ALGORITHM", (time.time() - starttime - WAITTIME))
 
