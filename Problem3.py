@@ -1,10 +1,17 @@
+'''
+Alex Walker
+10/4
+MAIN PROGRAM: Knapsack problem
+Funtions used in Functions.py and Plot_results.py
+'''
+
 import logging
 import time
 from Functions import *
 from Plot_Results import *
 
 # use # on disable line to enable debug print statements
-logging.disable(logging.CRITICAL)
+#logging.disable(logging.CRITICAL)
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
 
 '''
@@ -20,6 +27,15 @@ AVE_RUNTIME_G = []
 AVE_WEIGHT_E = []
 AVE_WEIGHT_G = []
 
+AVE_VALUE_E = []
+AVE_VALUE_G = []
+
+EVERY_RUNTIME_E = []
+EVERY_RUNTIME_G = []
+
+EVERY_WEIGHT_E = []
+EVERY_WEIGHT_G = []
+
 # opens a file to save all the runtimes to for your veiwing and debugging pleasuerpy
 # under Times.txt
 times = open(r"Times.txt", "w")
@@ -33,6 +49,9 @@ for i in range(3, 16):
 
     average_W_Exahstive = 0
     average_W_greedy = 0
+
+    average_V_Exahstive = 0
+    average_V_greedy = 0
 
     # each amount of items is run 5 times to improve runtime data accuracy
     for j in range(5):
@@ -70,6 +89,10 @@ for i in range(3, 16):
 
         average_T_Exahstive += stoptime - starttime - WAITTIME  # add runtime to average
         average_W_Exahstive += highest_weight
+        average_V_Exahstive += highest_value
+        EVERY_RUNTIME_E.append([i, stoptime - starttime - WAITTIME ])
+        EVERY_WEIGHT_E.append([i, highest_weight])
+
 
         # Print search exhaustive algorithm results
         print("EXHAUSTIVE:\nBring\n", highest_combo)
@@ -82,18 +105,22 @@ for i in range(3, 16):
         starttime = time.time()  # start timer
 
         # run search algo.
-        value, weight = greedySerch(Objects, Max_weight)
+        highest_combo, highest = greedySerch(Objects, Max_weight)
 
         time.sleep(WAITTIME)  # wait number of seconds
         stoptime = time.time()  # stop timer
 
         average_T_greedy += stoptime - starttime - WAITTIME  # add timer to average
-        average_W_greedy += highest_weight
+        average_W_greedy += highest[1]
+        average_V_greedy += highest[0]
+
+        EVERY_RUNTIME_G.append([i, stoptime - starttime - WAITTIME])
+        EVERY_WEIGHT_G.append([i, highest[1]])
 
         # print results of greedy algorithm
-        print("Greedy:\nBring\n", highest_combo)
-        print("Total Value\n", highest_value)
-        print("Total Weight\n", highest_weight)
+        print("GREEDY:\nBring\n", highest_combo)
+        print("Total Value\n", highest[0])
+        print("Total Weight\n", highest[1])
 
         print("TIME TO COMPLETE ALGORITHM", (time.time() - starttime - WAITTIME))
 
@@ -104,6 +131,9 @@ for i in range(3, 16):
     average_W_Exahstive /= 5
     average_W_greedy /= 5
 
+    average_V_Exahstive /= 5
+    average_V_greedy /= 5
+
     # append to average runtime list (plotting)
     AVE_RUNTIME_E.append(average_T_Exahstive)
     AVE_RUNTIME_G.append(average_T_greedy)
@@ -111,13 +141,21 @@ for i in range(3, 16):
     AVE_WEIGHT_E.append(average_W_Exahstive)
     AVE_WEIGHT_G.append(average_W_greedy)
 
+    AVE_VALUE_E.append(average_V_Exahstive)
+    AVE_VALUE_G.append(average_V_greedy)
+
     # write to file
     times.write("{:20s}".format(str(i)) + "{:20s}".format(str(average_T_Exahstive)))
     times.write("\t" + str(average_T_greedy) + "\n")
 
 times.close()  # Close file
 
+AVE_VALUE_R = []
+
+for i in range(len(AVE_VALUE_E)):
+    AVE_VALUE_R.append(AVE_VALUE_E[i]/AVE_VALUE_G[i])
 
 # make plots
-plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G)  
-plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G)
+plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G, EVERY_RUNTIME_E, EVERY_RUNTIME_G)
+plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G,EVERY_WEIGHT_E, EVERY_WEIGHT_G)
+plot_ValueRatio(AVE_VALUE_R)
