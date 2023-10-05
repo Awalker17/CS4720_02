@@ -4,7 +4,7 @@ from bokeh.models import Title
 
 import numpy as np
 x = np.linspace(3, 15, 20)
-
+y = np.linspace(3, 15, 20)
 
 def plot_runtimes(E, G, EVERY_RUNTIME_E, EVERY_RUNTIME_G):
     # for some reason the list aren't read as lists so just re-listifying them
@@ -39,7 +39,6 @@ def plot_runtimes(E, G, EVERY_RUNTIME_E, EVERY_RUNTIME_G):
     p.circle(Number_of_items, A_E, color="Blue", legend_label="Ave Exhaustive")
     p.square(Number_of_items, A_G, color="Green", legend_label="Ave Greedy")
 
-    p.line(x, (2**x)/15000, color = "black")
 
     # add legend
     p.legend.location = "top_right"
@@ -53,9 +52,22 @@ def plot_runtimes(E, G, EVERY_RUNTIME_E, EVERY_RUNTIME_G):
     # save as Plot.png
     export_png(p, filename="Runtimes.png")
 
-def plot_Items(Total_Weights_E, Total_Weight_G):
-    E = list(Total_Weights_E)
-    G = list(Total_Weight_G)
+def plot_Items(Total_Weights_E, Total_Weight_G, All_weights_E, All_weights_G):
+    T_E = list(Total_Weights_E)
+    T_G = list(Total_Weight_G)
+
+    NumbE = []
+    WeightE = []
+    NumbG = []
+    WeightG = []
+
+    for numbE, weightE in All_weights_E:
+        NumbE.append(numbE)
+        WeightE.append(weightE)
+
+    for numbG, weightG in All_weights_G:
+        NumbG.append(numbG)
+        WeightG.append(weightG)
 
 
     Number_of_items = list(range(3, 16))
@@ -64,8 +76,11 @@ def plot_Items(Total_Weights_E, Total_Weight_G):
     p.add_layout(Title(text="Total Weight", align="center"), "left")
 
     # add data to scatter plot
-    p.circle(Number_of_items, E, color="Blue", legend_label="Exhaustive")
-    p.square(Number_of_items, G, color="Green", legend_label="Greedy")
+
+    p.circle(NumbE, WeightE, color="Lightblue", legend_label="Exhaustive")
+    p.square(NumbG, WeightG, color="lightgreen", legend_label="Greedy")
+    p.circle(Number_of_items, T_E, color="Blue", legend_label="Ave Exhaustive")
+    p.square(Number_of_items, T_G, color="Green", legend_label="Ave Greedy")
 
     # add legend
     p.legend.location = "top_right"
@@ -77,7 +92,7 @@ def plot_Items(Total_Weights_E, Total_Weight_G):
     p.toolbar_location = None
 
     # save as Plot.png
-    export_png(p, filename="Total_Weights.png")
+    export_png(p, filename="Weights.png")
 
 def plot_ValueRatio(Values_R):
     R = list(Values_R)

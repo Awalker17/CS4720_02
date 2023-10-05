@@ -11,7 +11,7 @@ from Functions import *
 from Plot_Results import *
 
 # use # on disable line to enable debug print statements
-logging.disable(logging.CRITICAL)
+#logging.disable(logging.CRITICAL)
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
 
 '''
@@ -32,6 +32,9 @@ AVE_VALUE_G = []
 
 EVERY_RUNTIME_E = []
 EVERY_RUNTIME_G = []
+
+EVERY_WEIGHT_E = []
+EVERY_WEIGHT_G = []
 
 # opens a file to save all the runtimes to for your veiwing and debugging pleasuerpy
 # under Times.txt
@@ -88,6 +91,7 @@ for i in range(3, 16):
         average_W_Exahstive += highest_weight
         average_V_Exahstive += highest_value
         EVERY_RUNTIME_E.append([i, stoptime - starttime - WAITTIME ])
+        EVERY_WEIGHT_E.append([i, highest_weight])
 
 
         # Print search exhaustive algorithm results
@@ -111,6 +115,7 @@ for i in range(3, 16):
         average_V_greedy += highest[0]
 
         EVERY_RUNTIME_G.append([i, stoptime - starttime - WAITTIME])
+        EVERY_WEIGHT_G.append([i, highest[1]])
 
         # print results of greedy algorithm
         print("GREEDY:\nBring\n", highest_combo)
@@ -150,8 +155,7 @@ AVE_VALUE_R = []
 for i in range(len(AVE_VALUE_E)):
     AVE_VALUE_R.append(AVE_VALUE_E[i]/AVE_VALUE_G[i])
 
-
 # make plots
 plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G, EVERY_RUNTIME_E, EVERY_RUNTIME_G)
-plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G)
+plot_Items(AVE_WEIGHT_E, AVE_WEIGHT_G,EVERY_WEIGHT_E, EVERY_WEIGHT_G)
 plot_ValueRatio(AVE_VALUE_R)
