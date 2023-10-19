@@ -20,9 +20,11 @@ for n in range(8, 16):
         total += factorial(numb_items) / (factorial(i) * factorial(numb_items- i))
 
     print(n, total)
-'''
+
 for i in range(15):
     Max, Object = NumbGenerator(15)
     #print(Object)
     greedySerch(Object, Max)
+'''
+
 
