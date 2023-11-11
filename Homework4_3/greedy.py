@@ -9,7 +9,6 @@ def GreedyChangeMaker(D, n):
             F.append(D[i])
     return F
 
-D= [1,2,5,7]
-n = 20
-for n in range (1, 201):
-    print("n=", n, GreedyChangeMaker(D, n), end=", ")
+D= [1,4,5,9]
+n = 30
+print(GreedyChangeMaker(D, n))

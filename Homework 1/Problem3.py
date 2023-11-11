@@ -11,7 +11,7 @@ from Functions import *
 from Plot_Results import *
 
 # use # on disable line to enable debug print statements
-#logging.disable(logging.CRITICAL)
+logging.disable(logging.CRITICAL)
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
 
 '''
@@ -154,6 +154,7 @@ AVE_VALUE_R = []
 
 for i in range(len(AVE_VALUE_E)):
     AVE_VALUE_R.append(AVE_VALUE_E[i]/AVE_VALUE_G[i])
+
 
 # make plots
 plot_runtimes(AVE_RUNTIME_E, AVE_RUNTIME_G, EVERY_RUNTIME_E, EVERY_RUNTIME_G)

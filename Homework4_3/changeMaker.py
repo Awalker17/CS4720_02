@@ -15,6 +15,6 @@ def ChangeMakingAlgo(D, n):
     return N[-1]
 
 
-D= [1,2,5,7]
-for n in range (1, 201):
-    print("n=", n, ChangeMakingAlgo(D, n), end=", ")
+D= [1,4,5,9]
+n = 30
+print(ChangeMakingAlgo(D, n))
